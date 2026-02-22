@@ -1,10 +1,18 @@
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 import random
 import hashlib
 import engine.session as session
 
 from engine.plaid_client import client
 from plaid.model.transactions_get_request import TransactionsGetRequest
+
+
+# -------------------------------
+# SIMPLE MEMORY CACHE
+# -------------------------------
+CACHE_TRANSACTIONS = None
+CACHE_TIME = None
+CACHE_DURATION = 30   # seconds
 
 
 # -----------------------------------
@@ -82,7 +90,7 @@ def add_behavior_realism(cleaned):
         # preserve sign (income stays negative)
         scaled = amount * variance * DEMO_SCALE_FACTOR
 
-        # prevent tiny zero values but KEEP sign
+        # prevent tiny values while keeping sign
         if scaled > 0:
             scaled = max(1, scaled)
         else:
@@ -94,7 +102,6 @@ def add_behavior_realism(cleaned):
 
         # -------------------------
         # IMPULSE MICRO SPEND
-        # (expenses only)
         # -------------------------
         if amount > 0 and random.random() < 0.08:
             enhanced.append({
@@ -125,6 +132,20 @@ def add_behavior_realism(cleaned):
 # -----------------------------------
 def get_plaid_transactions():
 
+    global CACHE_TRANSACTIONS, CACHE_TIME
+
+    # -------------------------------
+    # CACHE CHECK
+    # -------------------------------
+    if CACHE_TRANSACTIONS and CACHE_TIME:
+        elapsed = (datetime.now() - CACHE_TIME).seconds
+        if elapsed < CACHE_DURATION:
+            print("⚡ Using cached Plaid data")
+            return CACHE_TRANSACTIONS
+
+    # -------------------------------
+    # ACCESS TOKEN CHECK
+    # -------------------------------
     if not hasattr(session, "SAVED_ACCESS_TOKEN") or not session.SAVED_ACCESS_TOKEN:
         print("No Plaid access token found")
         return []
@@ -188,6 +209,12 @@ def get_plaid_transactions():
     # SORT NEWEST FIRST
     # -------------------------------
     cleaned.sort(key=lambda x: x["date"], reverse=True)
+
+    # -------------------------------
+    # SAVE CACHE
+    # -------------------------------
+    CACHE_TRANSACTIONS = cleaned
+    CACHE_TIME = datetime.now()
 
     print(f"Plaid transactions fetched: {len(cleaned)}")
 

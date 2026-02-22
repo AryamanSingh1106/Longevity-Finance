@@ -131,7 +131,7 @@ export function MicroSavings({
 
         <div className="flex items-center gap-1 text-xs font-medium text-success">
           <ArrowUpRight className="h-3 w-3" />
-          +{growthPercent}%
+          AI projected growth
         </div>
       </div>
     </div>

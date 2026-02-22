@@ -26,7 +26,7 @@ import {
 type Roundup = {
   merchant: string
   amount: number
-  roundup: number   // ⭐ FIXED (was rounded)
+  roundup: number
   date: string
 }
 
@@ -40,7 +40,7 @@ type MicroSavingsData = {
   roundups_today?: number
   monthly_auto?: number
   projected_15yr?: number
-  projection?: CompoundPoint[]   // ⭐ FIXED
+  projection?: CompoundPoint[]
   recent_roundups?: Roundup[]
 }
 
@@ -122,7 +122,7 @@ export default function MicroSavingsPage() {
      SAFE FALLBACKS
   ========================= */
 
-  const compoundData = data.projection || []     // ⭐ FIXED
+  const compoundData = data.projection || []
   const recentRoundups = data.recent_roundups || []
 
   return (
@@ -163,11 +163,11 @@ export default function MicroSavingsPage() {
 
       {/* MAIN CONTENT */}
       <div className="mb-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
-      <MicroSavings
-  spareChangeSaved={data.total_saved}
-  monthlyAutomation={data.monthly_auto}
-  projectedLongTerm={data.projected_15yr}
-/>
+        <MicroSavings
+          spareChangeSaved={data.total_saved ?? 0}
+          monthlyAutomation={data.monthly_auto ?? 0}
+          projectedLongTerm={data.projected_15yr ?? 0}
+        />
 
         <ChartCard icon={TrendingUp} title="Long-Term Compound Projection">
           <ResponsiveContainer width="100%" height={220}>
@@ -225,28 +225,36 @@ export default function MicroSavingsPage() {
         </h3>
 
         <div className="flex flex-col gap-2">
-          {recentRoundups.map((item, i) => (
-            <div
-              key={i}
-              className="flex items-center justify-between rounded-lg bg-secondary/30 px-4 py-3"
-            >
-              <div>
-                <p className="text-sm font-medium text-foreground">
-                  {item.merchant}
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  ${item.amount.toFixed(2)} purchase
-                </p>
-              </div>
+          {recentRoundups.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              No round-ups yet.
+            </p>
+          ) : (
+            recentRoundups.map((item, i) => (
+              <div
+                key={i}
+                className="flex items-center justify-between rounded-lg bg-secondary/30 px-4 py-3"
+              >
+                <div>
+                  <p className="text-sm font-medium text-foreground">
+                    {item.merchant}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    ${item.amount.toFixed(2)} purchase
+                  </p>
+                </div>
 
-              <div className="text-right">
-                <p className="text-sm font-semibold text-success">
-                  {`+$${Number(item.roundup || 0).toFixed(2)}`}
-                </p>
-                <p className="text-xs text-muted-foreground">{item.date}</p>
+                <div className="text-right">
+                  <p className="text-sm font-semibold text-success">
+                    {`+$${Number(item.roundup || 0).toFixed(2)}`}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {item.date}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </PageWrapper>

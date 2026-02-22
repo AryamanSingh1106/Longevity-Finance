@@ -158,7 +158,7 @@ def get_transactions():
         refresh_request = TransactionsRefreshRequest(
             access_token=session.SAVED_ACCESS_TOKEN
         )
-        client.transactions_refresh(refresh_request)
+        #client.transactions_refresh(refresh_request)
     except Exception as e:
         print("Refresh skipped:", e)
 

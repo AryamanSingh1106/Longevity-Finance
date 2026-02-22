@@ -20,12 +20,18 @@ def behavior_engine():
         transactions = []
 
     # -------------------------------
-    # CATEGORY TOTALS
+    # CATEGORY TOTALS (EXPENSES ONLY)
     # -------------------------------
     category_totals = defaultdict(float)
 
     for t in transactions:
-        category_totals[t["category"]] += t["amount"]
+        amount = t["amount"]
+
+        # only count expenses
+        if amount <= 0:
+            continue
+
+        category_totals[t["category"]] += amount
 
     categories = [
         {"name": k, "value": round(v, 2)}
@@ -41,14 +47,8 @@ def behavior_engine():
     )
 
     # =====================================================
-    # ⭐ REALISTIC INCOME ESTIMATION (SANDBOX FIX)
+    # REALISTIC INCOME ESTIMATION (SANDBOX FIX)
     # =====================================================
-    # Plaid sandbox rarely gives real income data.
-    # So we infer income from expenses.
-    #
-    # Assumption:
-    # User saves roughly 15–25% of income.
-    # -----------------------------------------------------
     if monthly_spend == 0:
         monthly_income = 0
     else:
@@ -95,7 +95,6 @@ def behavior_engine():
         for k, v in sorted(monthly_totals.items())
     ]
 
-    # fallback if empty
     if not monthly_trend:
         monthly_trend = [{"month": "Current", "value": monthly_spend}]
 
@@ -107,7 +106,7 @@ def behavior_engine():
     )
 
     # -------------------------------
-    # DEBUG (VERY IMPORTANT)
+    # DEBUG
     # -------------------------------
     print("\n===== ML DEBUG =====")
     print("Transactions count:", len(transactions))
