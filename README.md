@@ -210,8 +210,12 @@ cd Longevity-Finance
 
 ```bash
 cd Backend
+
+# install dependencies
 pip install -r requirements.txt
-python app.py
+
+# run backend server
+uvicorn main:app --reload --port 5000
 ```
 
 Backend runs on:
@@ -267,6 +271,18 @@ B.Tech AI & ML — Universal AI University
 
 * GitHub: https://github.com/Aryaman1106
 * LinkedIn: https://linkedin.com/in/aryaman-singh-0b8807365
+
+**Divyansh Routray**
+B.Tech AI & ML — Universal AI University
+
+* GitHub: https://github.com/divyanshroutray8d13-wq
+* LinkedIn: https://www.linkedin.com/in/divyansh-routray-665bb7376/
+
+**Aaradhya Pawar**
+B.Tech AI & ML — Universal AI University
+
+* GitHub: https://github.com/AaradhyaPawar777
+* LinkedIn: www.linkedin.com/in/aaradhya-pawar-838931388
 
 ---
 
