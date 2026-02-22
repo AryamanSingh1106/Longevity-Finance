@@ -1,0 +1,207 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* Dark theme (default) */
+:root {
+  --background: #070B14;
+  --foreground: #E2E8F0;
+  --card: rgba(15, 23, 42, 0.6);
+  --card-foreground: #E2E8F0;
+  --popover: #0F172A;
+  --popover-foreground: #E2E8F0;
+  --primary: #3B82F6;
+  --primary-foreground: #FFFFFF;
+  --secondary: rgba(30, 41, 59, 0.5);
+  --secondary-foreground: #CBD5E1;
+  --muted: rgba(30, 41, 59, 0.4);
+  --muted-foreground: #64748B;
+  --accent: #6366F1;
+  --accent-foreground: #FFFFFF;
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: rgba(51, 65, 85, 0.5);
+  --input: rgba(30, 41, 59, 0.6);
+  --ring: #3B82F6;
+  --chart-1: #3B82F6;
+  --chart-2: #06B6D4;
+  --chart-3: #8B5CF6;
+  --chart-4: #10B981;
+  --chart-5: #F59E0B;
+  --radius: 0.75rem;
+  --sidebar: rgba(10, 15, 28, 0.95);
+  --sidebar-foreground: #CBD5E1;
+  --sidebar-primary: #3B82F6;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: rgba(59, 130, 246, 0.1);
+  --sidebar-accent-foreground: #E2E8F0;
+  --sidebar-border: rgba(51, 65, 85, 0.3);
+  --sidebar-ring: #3B82F6;
+  --glow-blue: rgba(59, 130, 246, 0.15);
+  --glow-accent: rgba(99, 102, 241, 0.12);
+  --success: #10B981;
+  --warning: #F59E0B;
+}
+
+/* Light theme */
+html.light {
+  --background: #FFFFFF;
+  --foreground: #1E293B;
+  --card: rgba(226, 232, 240, 0.6);
+  --card-foreground: #1E293B;
+  --popover: #F8FAFC;
+  --popover-foreground: #1E293B;
+  --primary: #3B82F6;
+  --primary-foreground: #FFFFFF;
+  --secondary: rgba(226, 232, 240, 0.8);
+  --secondary-foreground: #475569;
+  --muted: rgba(226, 232, 240, 0.7);
+  --muted-foreground: #94A3B8;
+  --accent: #6366F1;
+  --accent-foreground: #FFFFFF;
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: rgba(226, 232, 240, 0.8);
+  --input: rgba(226, 232, 240, 0.9);
+  --ring: #3B82F6;
+  --chart-1: #3B82F6;
+  --chart-2: #06B6D4;
+  --chart-3: #8B5CF6;
+  --chart-4: #10B981;
+  --chart-5: #F59E0B;
+  --radius: 0.75rem;
+  --sidebar: #F1F5F9;
+  --sidebar-foreground: #475569;
+  --sidebar-primary: #3B82F6;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: rgba(59, 130, 246, 0.08);
+  --sidebar-accent-foreground: #1E293B;
+  --sidebar-border: rgba(226, 232, 240, 0.8);
+  --sidebar-ring: #3B82F6;
+  --glow-blue: rgba(59, 130, 246, 0.08);
+  --glow-accent: rgba(99, 102, 241, 0.06);
+  --success: #10B981;
+  --warning: #F59E0B;
+}
+
+@theme inline {
+  --font-sans: 'Inter', 'Geist', 'Geist Fallback', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-glow-blue: var(--glow-blue);
+  --color-glow-accent: var(--glow-accent);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+  html.light {
+    color-scheme: light;
+  }
+  * {
+    @apply border-border outline-ring/50;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(51, 65, 85, 0.4);
+  }
+  .glass-card-elevated {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(51, 65, 85, 0.5);
+  }
+  html.light .glass-card {
+    background: rgba(248, 250, 252, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+  }
+  html.light .glass-card-elevated {
+    background: rgba(241, 245, 249, 0.95);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+  }
+  .glow-border-blue {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.15), inset 0 1px 0 rgba(59, 130, 246, 0.1);
+  }
+  .glow-border-accent {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.12), inset 0 1px 0 rgba(99, 102, 241, 0.08);
+  }
+  .text-gradient {
+    background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .animate-counter {
+    animation: counter-up 1.2s ease-out forwards;
+  }
+  .animate-fade-in {
+    animation: fade-in 0.6s ease-out forwards;
+  }
+  .animate-slide-up {
+    animation: slide-up 0.5s ease-out forwards;
+  }
+}
+
+@keyframes counter-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
